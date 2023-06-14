@@ -1,0 +1,29 @@
+.btn__Reset {
+  padding: 0;
+  margin: 0;
+  background: transparent none;
+  border: none;
+}
+
+.fileField__Wrapper--Button {
+  margin: 0;
+  background: transparent none;
+  border: none;
+}
+
+.fileField__WrapperButton {
+  display: block;
+  width: 100%;
+  position: relative;
+}
+
+.sr-only {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    opacity: 0;
+}

@@ -1,0 +1,23 @@
+<div class="form-group" [ngStyle]="{ 'margin-bottom': 0 }">
+  <div class="form__Field checkboxField checkboxField--Toggle" [ngClass]="{ isChecked: value }">
+    <div class="checkboxField__Wrapper">
+      <input
+        type="checkbox"
+        [name]="config.id"
+        [id]="config.id"
+        class="sr-only"
+        [value]="value"
+        tabindex="0"
+        [checked]="value"
+        (click)="onCheckboxSelect(!value)"
+      />
+      <label [for]="config.id" [ngStyle]="{ 'margin-bottom': 0 }">
+        <input type="checkbox" [id]="config.id" [value]="value" (change)="onCheckboxSelect(!value)" />
+        <span class="sr-only">{{ config.label }}</span>
+      </label>
+      <div>
+        <span class="checkboxField__Label form__Label" (click)="onCheckboxSelect(!value)">{{ config.label }}</span>
+      </div>
+    </div>
+  </div>
+</div>

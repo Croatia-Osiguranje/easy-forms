@@ -1,0 +1,27 @@
+<div
+  class="form__Field textareaField"
+  [ngClass]="{
+    hasValue: hasValue,
+    isFocused: isFocused,
+    isDisabled: config.attributes?.disabled
+  }"
+>
+  <div *ngIf="config.label">
+    <label [for]="config.id" class="form__Label">{{ config.label }}</label>
+  </div>
+  <div class="formField__Wrapper textareaField__Wrapper">
+    <textarea
+      [easyAttributes]="config.attributes || []"
+      [ngClass]="config.attributes?.class"
+      [id]="config.id"
+      [(ngModel)]="value"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+      (input)="textChanged($event)"
+      [attr.aria-describedby]="getAriaDescribedByIds()"
+      [attr.aria-invalid]="isFieldInvalid()"
+      [attr.aria-required]="isFieldRequired()"
+    ></textarea>
+  </div>
+  <span class="textField__Info form__Info" *ngIf="config.help" [id]="getAriaDescribedByHelpId()">{{ config.help }}</span>
+</div>

@@ -1,0 +1,27 @@
+<div
+  class="field__Group"
+  [ngClass]="{ isColumn: config.direction === 'col', isRow: config.direction === 'row', field__Group__borderUnset: removeBorder }"
+>
+  <div class="form-group" [ngStyle]="{ 'margin-bottom': 0 }" *ngFor="let radioButton of config.children">
+    <div class="form__Field radioField" [ngClass]="{ isChecked: value === radioButton.value }">
+      <div class="radioField__Wrapper">
+        <input
+          type="radio"
+          [name]="config.id"
+          [id]="radioButton.id"
+          class="sr-only"
+          [value]="radioButton.value"
+          tabindex="0"
+          [checked]="value === radioButton.value"
+          (click)="onRadioButtonSelect(radioButton.value)"
+        />
+        <label [for]="radioButton.id" [ngStyle]="{ 'margin-bottom': 0 }">
+          <span class="sr-only">{{ radioButton.label }}</span>
+        </label>
+        <div>
+          <span class="radioField__Label form__Label" (click)="onRadioButtonSelect(radioButton.value)">{{ radioButton.label }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

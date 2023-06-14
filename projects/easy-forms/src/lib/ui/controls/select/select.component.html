@@ -1,0 +1,45 @@
+<ng-container *ngIf="!loading">
+  <ng-select
+    [items]="items"
+    [loading]="loading"
+    [virtualScroll]="true"
+    [(ngModel)]="value"
+    [searchFn]="searchType ? customSearchFn : null"
+    [searchable]="searchable"
+    [clearable]="!config?.metaData?.disableClear"
+    [selectOnTab]="true"
+    [disabled]="disabled"
+    (blur)="onBlur()"
+    (change)="itemSelected($event)"
+    [bindLabel]="getLabelPropertyName()"
+    [bindValue]="getIdPropertyName()"
+    clearAllText="Obriši odabir"
+    notFoundText="{{ notFoundText }}"
+    placeholder="{{ config.label }}"
+    (search)="onInputChange($event)"
+    [attr.aria-describedby]="getAriaDescribedBy()"
+  ></ng-select>
+  <small class="form-text text-muted" *ngIf="config.help" [id]="getAriaDescribedByHelp()">{{ config.help }}</small>
+</ng-container>
+
+<ng-container *ngIf="loading">
+  <div
+    class="form__Field textField"
+    [ngClass]="{
+      hasValue: false,
+      isFocused: false,
+      hasBlur: false,
+      isDisabled: true
+    }"
+  >
+    <div class="formField__Wrapper textField__Wrapper">
+      <div>
+        <label class="form__Label">{{ getLoadingLabel(config) }}</label>
+      </div>
+
+      <input type="text" disabled />
+
+      <div class="textField__Loading"><span></span> <span></span> <span></span></div>
+    </div>
+  </div>
+</ng-container>

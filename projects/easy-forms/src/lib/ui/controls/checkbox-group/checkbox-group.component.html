@@ -1,0 +1,24 @@
+<div class="field__Group isColumn">
+  <div class="form-group" style="margin-bottom: 0" *ngFor="let checkbox of config.children">
+    <div class="form__Field checkboxField" [ngClass]="{ isChecked: isChecked(checkbox.value) }">
+      <div class="checkboxField__Wrapper">
+        <input
+          type="checkbox"
+          [name]="checkbox.id"
+          [id]="checkbox.id"
+          class="sr-only"
+          [value]="checkbox.value"
+          tabindex="0"
+          [checked]="isChecked(checkbox.value)"
+          (click)="onCheckboxSelect(checkbox.value)"
+        />
+        <label [for]="checkbox.id" style="margin-bottom: 0"
+          ><span class="sr-only">{{ config.label }}</span></label
+        >
+        <div>
+          <span class="checkboxField__Label form__Label" (click)="onCheckboxSelect(checkbox.value)" [innerHTML]="checkbox.label"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

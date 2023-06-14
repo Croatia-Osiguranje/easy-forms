@@ -1,0 +1,5 @@
+<div class="form-group" [ngClass]="getFormGroupValidationClass()" *ngIf="config.type !== 'hidden' && isVisible(config)">
+  <easy-control-factory *ngIf="control" [config]="config" [control]="control" [formControl]="control"></easy-control-factory>
+  <easy-control-factory *ngIf="!control" [config]="config"></easy-control-factory>
+  <easy-validation-message *ngIf="control" [control]="control" [fieldId]="getFieldId()"></easy-validation-message>
+</div>

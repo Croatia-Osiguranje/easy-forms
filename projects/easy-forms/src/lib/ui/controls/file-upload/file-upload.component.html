@@ -1,0 +1,80 @@
+<div class="form__Field fileField" [ngClass]="{ hasValue: !!selectedFiles.length }">
+  <div class="fileField__InputWrapper">
+    <button
+      type="button"
+      aria-label="Dodaj datoteku"
+      [attr.aria-describedby]="getAriaDescribedByIds()"
+      [attr.aria-invalid]="isFieldInvalid()"
+      [attr.aria-required]="isFieldRequired()"
+      (click)="openFileUpload()"
+      [disabled]="filesUploading"
+      class="btn__Reset fileField__WrapperButton"
+      tabindex="0"
+    >
+      <span *ngIf="filesUploading" class="textField__Loading"><span></span> <span></span> <span></span></span>
+      <span class="fileField__Wrapper">
+        <span>
+          <label class="form__Label" [for]="config.id"
+            >{{ config.label }}{{ config.validators?.required || config.attributes?.required ? ' *' : '' }}</label
+          >
+        </span>
+        <span class="fileField__Append">
+          <svg
+            *ngIf="!filesUploading"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            role="img"
+            focusable="false"
+          >
+            <g fill="none" fill-rule="evenodd">
+              <path d="M0 24h24V0H0z"></path>
+              <path
+                fill="currentColor"
+                d="M18 20v2H6v-2h12zM12 2c.318 0 .634.064.937.17h.036v.011c.398.144.774.37 1.091.696L19.5 8.463l-1.376 1.414-5.15-5.293V17.17h-1.947V4.584L5.876 9.877 4.5 8.463l5.436-5.586a2.874 2.874 0 011.09-.696V2.17h.037A2.85 2.85 0 0112 2z"
+              ></path>
+            </g>
+          </svg>
+        </span>
+        <input
+          (blur)="onBlur()"
+          [easyAttributes]="config.attributes || []"
+          type="file"
+          [id]="config.id"
+          #inputRef
+          (click)="$event.stopPropagation()"
+          (change)="onInputChange($event)"
+        />
+      </span>
+    </button>
+    <div *ngFor="let file of selectedFiles; let i = index" class="formField__Files">
+      <span class="formField__FileName" [ngClass]="{ isError: file.easyForms?.error }">
+        <button
+          type="button"
+          tabindex="0"
+          [disabled]="filesUploading"
+          [attr.aria-label]="'Obriši datoteku: ' + file.name + (file.easyForms?.error ? ' - ' + file.easyForms?.errorMessage : '')"
+          (click)="deleteFileFromUploadedFiles(i)"
+          class="formField__FileNameDelete btn__Reset"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" focusable="false">
+            <g fill="none" fill-rule="evenodd">
+              <path d="M0 0h24v24H0z"></path>
+              <path
+                fill="#0F0664"
+                d="M17 5l-5.294 5.293L6.414 5 5 6.414l5.292 5.293L5 17l1.414 1.414 5.292-5.293L17 18.414 18.414 17l-5.293-5.293 5.293-5.293z"
+                class="fill"
+              ></path>
+            </g>
+          </svg>
+        </button>
+        <span>{{ file.name }}</span>
+        <span *ngIf="file.easyForms?.error"
+          >&nbsp;({{ bytesToMb(file.size) | number: '1.2-2' }} MB) - {{ file.easyForms?.errorMessage }}</span
+        >
+      </span>
+    </div>
+  </div>
+  <span class="textField__Info form__Info" *ngIf="config.help" [id]="getAriaDescribedByHelpId()">{{ config.help }}</span>
+</div>

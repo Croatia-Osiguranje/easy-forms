@@ -1,0 +1,7 @@
+<ul
+  *ngIf="control?.invalid && control?.errors && isControlTouched()"
+  class="form__Errors textField__Error"
+  [id]="getAriaDescribedByReferenceId()"
+>
+  <li class="form__Error"><span class="visually-hidden">Greška: </span><span class="form__ErrorContent" [innerHTML]="control.errors?.['message']"></span></li>
+</ul>

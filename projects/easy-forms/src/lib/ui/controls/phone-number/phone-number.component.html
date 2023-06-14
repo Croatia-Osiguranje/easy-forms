@@ -1,0 +1,64 @@
+<div
+  class="form__Field textField"
+  [ngClass]="{
+    hasValue: value,
+    isFocused: isFocused,
+    hasBlur: isBlur,
+    isDisabled: config.attributes?.disabled
+  }"
+>
+  <div class="formField__Wrapper textField__Wrapper">
+    <div *ngIf="config.label">
+      <label [for]="config.id" class="form__Label">{{ config.label }}</label>
+      <button
+        type="button"
+        class="form__FieldTooltip isArrowOnBottoms btn__Reset"
+        *ngIf="config?.attributes?.tooltip"
+        [class.isOpened]="isTooltipOpen"
+        (mouseover)="setTooltipOpen(true)"
+        (mouseout)="setTooltipOpen(false)"
+        (focus)="setTooltipOpen(true)"
+        (blur)="setTooltipOpen(false)"
+        [attr.aria-describedby]="getAriaDescribedByTooltipId()"
+        [attr.aria-label]="'Pomoć za polje: ' + config.label"
+        tabindex="0"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          role="img"
+          focusable="false"
+          class="form__FieldTooltipIcon"
+        >
+          <title>Pomoć</title>
+          <path
+            fill="#0F0664"
+            fill-rule="evenodd"
+            d="M12 0c6.617 0 12 5.383 12 12s-5.383 12-12 12S0 18.617 0 12 5.383 0 12 0zm0 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm1 15v2h-2v-2h2zM12 5c2.206 0 4 1.794 4 4 0 1.697-.941 2.666-1.697 3.444C13.575 13.193 13 13.784 13 15h-2c0-2.027 1.036-3.093 1.868-3.949C13.591 10.307 14 9.845 14 9c0-1.103-.898-2-2-2-1.102 0-2 .897-2 2l-2 .012A4.007 4.007 0 0112 5z"
+            class="fill"
+          ></path>
+        </svg>
+        <div class="form__FieldTooltipText" role="tooltip" [attr.aria-hidden]="!isTooltipOpen">
+          <div [id]="getAriaDescribedByTooltipId()">{{ config.attributes.tooltip.text }}</div>
+        </div>
+      </button>
+    </div>
+    <div class="textField__Prepend" *ngIf="isFocused || value">+385</div>
+    <input
+      [easyAttributes]="config.attributes || []"
+      [ngClass]="config.attributes?.class"
+      [id]="config.id"
+      [value]="value"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+      (input)="textChanged($event)"
+      [attr.maxlength]="maxLength"
+      [attr.aria-describedby]="getAriaDescribedByIds()"
+      [attr.aria-invalid]="isFieldInvalid()"
+      [attr.aria-required]="isFieldRequired()"
+    />
+  </div>
+  <span class="textField__Info form__Info" *ngIf="config.help" [id]="getAriaDescribedByHelpId()">{{ config.help }}</span>
+</div>

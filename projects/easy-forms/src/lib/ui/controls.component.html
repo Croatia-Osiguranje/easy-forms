@@ -1,0 +1,16 @@
+<div [formGroup]="form">
+  <easy-controls-group [isGroup]="isGroup">
+    <ng-container *ngFor="let c of config; trackBy: trackByFunction">
+      <easy-control
+        *ngIf="c.type !== 'subForm' && c.type !== 'fieldGroup' && isVisible(c)"
+        [control]="form.get(c.id)"
+        [config]="c"
+        (handleTriggersEvent)="handleTriggers($event)"
+      ></easy-control>
+
+      <easy-controls *ngIf="c.type === 'fieldGroup'" [config]="c.children" [form]="form" [isGroup]="true"></easy-controls>
+
+      <easy-controls *ngIf="c.type === 'subForm' && isVisible(c)" [config]="c.children" [form]="getSubform(c)"></easy-controls>
+    </ng-container>
+  </easy-controls-group>
+</div>
