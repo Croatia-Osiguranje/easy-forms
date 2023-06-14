@@ -47,7 +47,6 @@ export class EasyFormsModule {
   }
 
   static forChild(config: GlobalConfig): ModuleWithProviders<EasyFormsModule> {
-    console.log(config);
     return {
       ngModule: EasyFormsModule,
       providers: [
